@@ -82,16 +82,21 @@
       .services.snap { padding-bottom: 32px; }
       .services-header { margin-top: 4px; }
       .services-window { flex: 0 0 60%; min-height: 0; height: 60%; box-sizing: border-box; border: 1px solid var(--border); border-radius: 14px; overflow: hidden; background: color-mix(in oklab, var(--panel) 86%, transparent); }
-      .services-carousel { height: 100%; display: flex; align-items: stretch; gap: 12px; overflow-x: auto; overflow-y: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; padding: 8px 12px; -webkit-overflow-scrolling: touch; touch-action: pan-y pan-x; }
-      .service-slide { flex: 0 0 100%; height: 97%; scroll-snap-align: center; scroll-snap-stop: always; border-radius: 12px; border: 1px solid var(--border); background: #0f1117; display: flex; text-align: center; padding: 0; box-sizing: border-box; }
-      .service-slide > div { flex: 1 1 auto; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 24px; }
-      .service-slide h3 { margin: 0 0 8px; font-size: clamp(18px, 3vw, 22px); }
+      .services-carousel { height: 100%; min-height: 0; display: flex; align-items: stretch; gap: 12px; overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory; scroll-behavior: smooth; padding: 12px; -webkit-overflow-scrolling: touch; touch-action: pan-y pan-x; }
+      .service-slide { flex: 0 0 100%; height: 95%; min-height: 0; scroll-snap-align: center; scroll-snap-stop: always; border-radius: 12px; border: 1px solid var(--border); background: #0f1117; display: flex; text-align: center; margin: 0; padding: 20px; box-sizing: border-box; }
+      .service-slide > div { flex: 1 1 auto; height: 100%; min-height: 0; display: flex; flex-direction: column; justify-content: space-around; align-items: center; gap: 12px; padding: 20px; box-sizing: border-box; margin-top: 0; }
+      .service-slide h3 { margin: 4px 0 8px; font-size: clamp(18px, 3vw, 22px); padding-top: 10px; }
       .service-slide p { margin: 0; color: var(--muted); max-width: 58ch; }
+      .services-list { margin: 10px 0 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 8px; align-items: stretch; justify-content: flex-start; color: var(--muted); text-align: left; width: 100%; }
+      .services-list li { display: flex; align-items: center; justify-content: space-between; width: 100%; padding: 12px 14px; border-radius: 12px; border: 1px solid var(--border); background: color-mix(in oklab, var(--panel) 94%, transparent); box-sizing: border-box; }
+      .services-list li::before { content: none; }
+      .services-list li::after { content: "✓"; color: var(--accent); font-weight: 900; margin-left: 12px; }
       .services-actions { display: flex; justify-content: center; gap: 12px; margin-top: 12px; }
 
       /* Desktop: servicios como antes (grid, sin ventana a altura completa) */
       @media (min-width: 721px) {
         .hero > .container { height: auto; }
+        .services > .container { height: auto; }
         .services { flex: 0 0 auto; }
         .services-window { height: auto; min-height: 0; overflow: visible; background: transparent; border: 0; padding: 0; }
         .services-carousel {
@@ -101,8 +106,9 @@
         .service-slide {
           flex: initial; height: auto; scroll-snap-align: unset; scroll-snap-stop: unset;
           border-radius: 14px; border: 1px solid var(--border); background: color-mix(in oklab, var(--panel) 88%, transparent);
-          text-align: left; display: block; padding: 18px;
+          text-align: center; display: block; padding: 18px;
         }
+        .services-actions { margin-top: 16px; }
       }
 
       /* Cards grid */
@@ -246,38 +252,80 @@
             <div class="services-carousel" aria-label="Servicios principales">
               <article class="service-slide">
                 <div>
-                  <h3>Creación de contenido</h3>
-                  <p>Guiones, edición, copy y piezas para Reels, Shorts y TikTok.</p>
+                    <div class="service-head">
+                        <h3>Grabación de contenido</h3>
+                        <p>Creamos material audiovisual atractivo y profesional que conecta con tu audiencia desde el primer segundo.</p>
+                    </div>
+                    <ul class="services-list">
+                        <li>Producción en alta calidad</li>
+                        <li>Multiples formatos y estilos</li>
+                        <li>Enfoque creativo y dinámico</li>
+                    </ul>
                 </div>
               </article>
               <article class="service-slide">
                 <div>
-                  <h3>Gestión de redes</h3>
-                  <p>Calendario, publicación, community management y optimización continua.</p>
+                  <div class="service-head">
+                    <h3>Edición de contenido</h3>
+                    <p>Transformamos tus grabaciones en piezas impactantes y listas para destacar en cualquier plataforma.</p>
+                  </div>
+                  <ul class="services-list">
+                      <li>Edición rápida y eficiente</li>
+                      <li>Corrección de color y sonido</li>
+                      <li>Entregas listas para publicar</li>
+                  </ul>
                 </div>
               </article>
               <article class="service-slide">
                 <div>
-                  <h3>Estrategia digital</h3>
-                  <p>Definición de objetivos, tono de marca, pilares y roadmap.</p>
+                  <div class="service-head">
+                    <h3>Gestión de redes</h3>
+                    <p>Nos encargamos de tu presencia online para que tu marca esté activa, visible y en constante crecimiento.</p>
+                  </div>
+                  <ul class="services-list">
+                    <li>Calendario de publicaciones</li>
+                    <li>Community management</li>
+                    <li>Estrategia de crecimiento</li>
+                  </ul>
                 </div>
               </article>
               <article class="service-slide">
                 <div>
-                  <h3>Publicidad (Ads)</h3>
-                  <p>Campañas en Meta/Google con seguimiento y ajustes semanales.</p>
+                  <div class="service-head">
+                    <h3>Análisis y seguimiento</h3>
+                    <p>Medimos el rendimiento de tus acciones digitales para optimizar cada paso y maximizar resultados.</p>
+                  </div>
+                  <ul class="services-list">
+                    <li>Análisis de audiencia</li>
+                    <li>Informes mensuales</li>
+                    <li>Reportes fáciles de interpretar</li>
+                  </ul>
                 </div>
               </article>
               <article class="service-slide">
                 <div>
-                  <h3>Email & CRM</h3>
-                  <p>Flujos, newsletters y automatizaciones sencillas orientadas a conversión.</p>
+                  <div class="service-head">
+                    <h3>Marketing para empresas</h3>
+                    <p>Diseñamos estrategias personalizadas que impulsan tu negocio y lo diferencian en el mercado.</p>
+                  </div>
+                  <ul class="services-list">
+                    <li>Campañas digitales efectivas</li>
+                    <li>Segmentación de audiencias</li>
+                    <li>Posicionamiento de marca</li>
+                  </ul>
                 </div>
               </article>
               <article class="service-slide">
                 <div>
-                  <h3>Analítica & Reporting</h3>
-                  <p>KPIs claros, paneles simples y aprendizajes accionables.</p>
+                  <div class="service-head">
+                    <h3>Servicios web</h3>
+                    <p>Desarrollamos páginas y soluciones digitales a medida para que tu marca tenga presencia sólida y profesional.</p>
+                  </div>
+                  <ul class="services-list">
+                    <li>Diseño moderno y funcional</li>
+                    <li>Optimización para móviles</li>
+                    <li>Hecho a tu medida</li>
+                  </ul>
                 </div>
               </article>
             </div>
