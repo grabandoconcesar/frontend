@@ -81,10 +81,10 @@
       .services { display: flex; flex-direction: column; flex: 1 1 auto; min-height: 0; }
       .services.snap { padding-bottom: 32px; }
       .services-header { margin-top: 4px; }
-      .services-window { flex: 0 0 60%; min-height: 0; height: 60%; box-sizing: border-box; border: 1px solid var(--border); border-radius: 14px; overflow: hidden; background: color-mix(in oklab, var(--panel) 86%, transparent); }
-      .services-carousel { height: 100%; min-height: 0; display: flex; align-items: stretch; gap: 12px; overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory; scroll-behavior: smooth; padding: 12px; -webkit-overflow-scrolling: touch; touch-action: pan-y pan-x; }
-      .service-slide { flex: 0 0 100%; height: 95%; min-height: 0; scroll-snap-align: center; scroll-snap-stop: always; border-radius: 12px; border: 1px solid var(--border); background: #0f1117; display: flex; text-align: center; margin: 0; padding: 20px; box-sizing: border-box; }
-      .service-slide > div { flex: 1 1 auto; height: 100%; min-height: 0; display: flex; flex-direction: column; justify-content: space-around; align-items: center; gap: 12px; padding: 20px; box-sizing: border-box; margin-top: 0; }
+      .services-window { flex: 0 0 auto; min-height: 0; height: auto; box-sizing: border-box; border: 1px solid var(--border); border-radius: 14px; overflow: hidden; background: color-mix(in oklab, var(--panel) 86%, transparent); }
+      .services-carousel { height: auto; min-height: 0; display: flex; align-items: stretch; gap: 12px; overflow-x: auto; overflow-y: visible; scroll-snap-type: x mandatory; scroll-behavior: smooth; padding: 12px; -webkit-overflow-scrolling: touch; touch-action: pan-y pan-x; }
+      .service-slide { flex: 0 0 100%; height: auto; min-height: 0; scroll-snap-align: center; scroll-snap-stop: always; border-radius: 12px; border: 1px solid var(--border); background: #0f1117; display: flex; text-align: center; margin: 0; padding: 20px; box-sizing: border-box; }
+      .service-slide > div { flex: 1 1 auto; height: auto; min-height: 0; display: flex; flex-direction: column; justify-content: space-around; align-items: center; gap: 12px; padding: 20px; box-sizing: border-box; margin-top: 0; }
       .service-slide h3 { margin: 4px 0 8px; font-size: clamp(18px, 3vw, 22px); padding-top: 10px; }
       .service-slide p { margin: 0; color: var(--muted); max-width: 58ch; }
       .services-list { margin: 10px 0 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 8px; align-items: stretch; justify-content: flex-start; color: var(--muted); text-align: left; width: 100%; }
@@ -175,20 +175,18 @@
         }
 
         .pricing.snap { align-items: stretch; }
-        .pricing .container { display: flex; flex-direction: column; height: 100%; }
+        .pricing .container { display: flex; flex-direction: column; height: auto; }
         .pricing .section-title { margin-top: 16px; }
         .pricing .grid {
           display: block; /* apila las tarjetas */
-          flex: 1 1 auto; /* ocupa el alto restante de la sección */
-          overflow-y: auto; /* área scroll interna */
+          flex: initial; /* no fuerza altura fija */
+          overflow-y: visible; /* deja crecer por contenido */
           padding: 12px 0 16px;
-          scroll-snap-type: y mandatory;
-          scroll-behavior: smooth;
-          -webkit-overflow-scrolling: touch;
+          /* sin snap interno para respetar el flujo natural */
         }
         .pricing .grid .card {
-          scroll-snap-align: start;
-          min-height: 100%; /* cada card ocupa toda el área visible del carrusel */
+          /* altura por contenido */
+          min-height: auto;
           margin: 0 0 12px;
           display: flex; flex-direction: column; justify-content: flex-start;
         }
