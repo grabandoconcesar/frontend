@@ -65,8 +65,8 @@
       .hero { text-align: center; }
       .hero h1 { font-size: clamp(28px, 5vw, 46px); line-height: 1.1; margin: 0 0 12px; }
       .hero p { margin: 0 auto 26px; color: var(--muted); max-width: 720px; }
-      .hero .actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
-      .hero > .container { display: flex; flex-direction: column; height: calc(100svh - var(--nav-h)); gap: 16px; }
+      .hero .actions { display: flex; gap: 12px; justify-content: center; align-items: center; flex-direction: column; }
+      .hero > .container { display: flex; flex-direction: column; height: calc(100svh - var(--nav-h)); gap: 16px; justify-content: center; align-items: center; }
       .services > .container { display: flex; flex-direction: column; height: calc(100svh - var(--nav-h)); gap: 12px; }
       .btn-ghost { padding: 10px 16px; border-radius: 10px; border: 1px solid var(--border); }
       .btn-ghost:hover { border-color: color-mix(in oklab, var(--border), white 12%); }
@@ -79,13 +79,15 @@
 
       /* Services window inside first section */
       .services { display: flex; flex-direction: column; flex: 1 1 auto; min-height: 0; }
+      .services.snap { padding-bottom: 32px; }
       .services-header { margin-top: 4px; }
-      .services-window { flex: 1 1 auto; min-height: 0; height: 100%; box-sizing: border-box; border: 1px solid var(--border); border-radius: 14px; overflow: hidden; background: color-mix(in oklab, var(--panel) 86%, transparent); }
-      .services-carousel { height: 100%; display: flex; align-items: stretch; gap: 12px; overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory; scroll-behavior: smooth; padding: 8px 12px; -webkit-overflow-scrolling: touch; touch-action: pan-x; }
-      .service-slide { flex: 0 0 100%; height: 95%; scroll-snap-align: center; scroll-snap-stop: always; border-radius: 12px; border: 1px solid var(--border); background: #0f1117; display: flex; text-align: center; padding: 0; box-sizing: border-box; }
+      .services-window { flex: 0 0 60%; min-height: 0; height: 60%; box-sizing: border-box; border: 1px solid var(--border); border-radius: 14px; overflow: hidden; background: color-mix(in oklab, var(--panel) 86%, transparent); }
+      .services-carousel { height: 100%; display: flex; align-items: stretch; gap: 12px; overflow-x: auto; overflow-y: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; padding: 8px 12px; -webkit-overflow-scrolling: touch; touch-action: pan-y pan-x; }
+      .service-slide { flex: 0 0 100%; height: 97%; scroll-snap-align: center; scroll-snap-stop: always; border-radius: 12px; border: 1px solid var(--border); background: #0f1117; display: flex; text-align: center; padding: 0; box-sizing: border-box; }
       .service-slide > div { flex: 1 1 auto; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 24px; }
       .service-slide h3 { margin: 0 0 8px; font-size: clamp(18px, 3vw, 22px); }
       .service-slide p { margin: 0; color: var(--muted); max-width: 58ch; }
+      .services-actions { display: flex; justify-content: center; gap: 12px; margin-top: 12px; }
 
       /* Desktop: servicios como antes (grid, sin ventana a altura completa) */
       @media (min-width: 721px) {
@@ -226,8 +228,8 @@
           <h1>Creación y gestión de contenido digital</h1>
           <p>Impulsa tu marca con contenido consistente, crecimiento en redes y campañas medibles. Estrategia y ejecución, sin complicaciones.</p>
           <div class="actions">
-            <a class="cta" href="#planes">Ver planes</a>
             <a class="btn-ghost" href="#servicios">Ver servicios</a>
+            <a class="cta" href="#planes">Ver planes</a>
           </div>
 
         </div>
@@ -279,6 +281,9 @@
                 </div>
               </article>
             </div>
+          </div>
+          <div class="services-actions">
+            <a class="cta" href="#planes">Ver planes</a>
           </div>
         </div>
       </section>
