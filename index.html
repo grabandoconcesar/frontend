@@ -72,7 +72,7 @@
       .btn-ghost:hover { border-color: color-mix(in oklab, var(--border), white 12%); }
 
       /* Sections */
-      section { padding: 52px 0; }
+      section { margin-top: 52px; padding: 52px 0; }
       .snap { padding: 0; }
       .section-title { font-size: clamp(22px, 3.5vw, 32px); margin: 0 0 22px; text-align: center; }
       .muted-center { color: var(--muted); text-align: center; margin: 0 auto 28px; max-width: 760px; }
@@ -81,7 +81,7 @@
       .services { display: flex; flex-direction: column; flex: 1 1 auto; min-height: 0; }
       .services.snap { padding-bottom: 32px; }
       .services-header { margin-top: 4px; }
-      .services-window { flex: 0 0 auto; min-height: 0; height: auto; box-sizing: border-box; border: 1px solid var(--border); border-radius: 14px; overflow: hidden; background: color-mix(in oklab, var(--panel) 86%, transparent); }
+      .services-window { flex: 0 0 auto; min-height: 0; height: auto; box-sizing: border-box; overflow: hidden; }
       .services-carousel { height: auto; min-height: 0; display: flex; align-items: stretch; gap: 12px; overflow-x: auto; overflow-y: visible; scroll-snap-type: x mandatory; scroll-behavior: smooth; padding: 12px; -webkit-overflow-scrolling: touch; touch-action: pan-y pan-x; }
       .service-slide { flex: 0 0 100%; height: auto; min-height: 0; scroll-snap-align: center; scroll-snap-stop: always; border-radius: 12px; border: 1px solid var(--border); background: #0f1117; display: flex; text-align: center; margin: 0; padding: 20px; box-sizing: border-box; }
       .service-slide > div { flex: 1 1 auto; height: auto; min-height: 0; display: flex; flex-direction: column; justify-content: space-around; align-items: center; gap: 12px; padding: 20px; box-sizing: border-box; margin-top: 0; }
@@ -118,6 +118,11 @@
         .snap { min-height: calc(100svh - var(--nav-h)); scroll-snap-align: start; }
         .snap > .container { height: calc(100svh - var(--nav-h)); display: flex; flex-direction: column; }
         header { position: sticky; }
+        /* Contacto: menos espacio y sin ocupar toda la altura */
+        #contacto.snap { min-height: auto; padding-top: 32px; padding-bottom: 32px; }
+        #contacto.snap > .container { height: auto; }
+        #contacto .section-title { margin-top: 20px; }
+        footer { padding-top: 16px; padding-bottom: 60px; }
       }
 
       /* Cards grid */
@@ -133,11 +138,16 @@
       .card p { margin: 0; color: var(--muted); }
 
       /* Pricing */
-      .pricing .card { padding: 22px; display: flex; flex-direction: column; }
+      .pricing .card { padding: 22px; display: flex; flex-direction: column; position: relative; }
       .price { font-size: 30px; font-weight: 800; margin: 8px 0 14px; }
+      .price .old-price { font-size: 14px; font-weight: 600; color: var(--muted); text-decoration: line-through; margin-left: 8px; opacity: .9; }
+      .plan-divider { height: 1px; background: var(--border); border-radius: 1px; margin: 6px 0 10px; }
+      .pieces-per-month { font-weight: 800; color: var(--text); letter-spacing: .2px; margin: 0 0 14px; }
       .features { list-style: none; padding: 0; margin: 0 0 18px; color: var(--muted); }
       .features li { margin: 6px 0; }
       .buy { margin-top: auto; display: block; text-align: center; align-self: stretch; width: 100%; box-sizing: border-box; }
+      .badge-best { position: absolute; top: 10px; right: 10px; padding: 6px 10px; border-radius: 999px; background: var(--accent); color: #041014; font-weight: 800; font-size: 12px; letter-spacing: .2px; box-shadow: 0 6px 18px rgba(20,184,64,.25); }
+      .badge-best-red { position: absolute; top: 10px; right: 10px; padding: 6px 10px; border-radius: 999px; background: var(--accent); color: #041014; font-weight: 800; font-size: 12px; letter-spacing: .2px; box-shadow: 0 6px 18px rgba(20,184,64,.25); }
 
       /* Contact */
       form { display: grid; gap: 12px; grid-template-columns: repeat(12,1fr); }
@@ -152,7 +162,7 @@
       }
       textarea { min-height: 110px; resize: vertical; }
       input:focus, select:focus, textarea:focus { outline: none; border-color: var(--brand); box-shadow: 0 0 0 3px rgba(37,99,235,.2); }
-      .submit { justify-self: start; padding: 12px 18px; border-radius: 12px; background: var(--accent); color: #041014; font-weight: 800; border: 0; cursor: pointer; }
+      .submit { grid-column: 1 / -1; justify-self: center; padding: 12px 18px; border-radius: 12px; background: var(--accent); color: #041014; font-weight: 800; border: 0; cursor: pointer; }
       .submit:hover { filter: brightness(1.05); }
 
       /* Footer */
@@ -160,16 +170,18 @@
 
       /* Mobile: Planes como carrusel vertical */
       @media (max-width: 720px) {
-        /* Servicios: ventana ocupa ~60% y carrusel a altura completa */
-        .services > .container { height: calc(100svh - var(--nav-h)); }
-        .services-window { height: 60%; flex-basis: 60%; }
-        .services-carousel { height: 100%; overflow-y: hidden; }
-        .service-slide, .service-slide > div { height: 100%; }
+        /* Servicios: lista vertical (sin carrusel interno) */
+        .services.snap > .container { height: auto; }
+        .services > .container { height: auto; }
+        .services-window { flex: 1 1 auto; height: auto; }
+        .services-carousel { display: flex; flex-direction: column; gap: 12px; height: auto; overflow-y: visible; overflow-x: hidden; scroll-snap-type: none; padding: 12px; }
+        .service-slide, .service-slide > div { height: auto; }
 
         /* Planes: carrusel vertical interno que llena la sección */
         .pricing.snap { align-items: stretch; }
         .pricing .container { display: flex; flex-direction: column; height: 100%; }
-        .pricing .section-title { margin-top: 16px; }
+        .pricing .section-title { margin-top: 28px; }
+        #contacto .section-title { margin-top: 28px; }
         .pricing .grid {
           display: block; /* apila las tarjetas */
           flex: 1 1 auto; /* ocupa el alto restante de la sección */
@@ -187,6 +199,17 @@
         }
       }
 
+      /* FAB móvil para ir a Planes (solo visible en sección Servicios) */
+      .fab-planes {
+        position: fixed; left: 50%; bottom: max(16px, env(safe-area-inset-bottom) + 8px); transform: translateX(-50%);
+        z-index: 60; display: none; align-items: center; gap: 8px;
+        padding: 12px 16px; border-radius: 999px; color: #fff; font-weight: 700;
+        background: linear-gradient(180deg, var(--brand) 0%, var(--brand-600) 100%);
+        box-shadow: 0 10px 26px rgba(43, 156, 6, 0.35);
+      }
+      @media (min-width: 721px) { .fab-planes { display: none !important; } }
+      .fab-planes.show { display: inline-flex; }
+
       /* WhatsApp button (navbar) */
       .btn-wa {
         display: inline-flex; align-items: center; gap: 10px; margin-left: 14px;
@@ -198,6 +221,8 @@
 
       /* Small helpers */
       .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
+      [hidden] { display: none !important; }
+      .contact-actions { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin:12px 0 18px; }
     </style>
   </head>
   <body>
@@ -236,7 +261,7 @@
 
       <!-- Sección 2: Servicios (100% viewport) -->
       <section id="servicios" class="snap services">
-        <div class="container">
+        
           <div class="services-header">
             <h2 class="section-title">Servicios</h2>
             <p class="muted-center">Paquetes claros, ejecución ágil y enfoque en resultados. Solo lo que aporta valor.</p>
@@ -323,10 +348,7 @@
               </article>
             </div>
           </div>
-          <div class="services-actions">
-            <a class="cta" href="#planes">Ver planes</a>
-          </div>
-        </div>
+          
       </section>
 
       <!-- Sección 3: Planes (100% viewport) -->
@@ -339,34 +361,46 @@
             <div class="card col-4" data-plan="Standard">
               <h3>Standard</h3>
               <div class="price">300€ / mes</div>
+              <div class="plan-divider" role="separator" aria-hidden="true"></div>
+              <div class="pieces-per-month" aria-label="Piezas de contenido al mes">4 piezas de contenido / mes</div>
+              <div class="plan-divider" role="separator" aria-hidden="true"></div>
               <ul class="features">
-                <li>4–6 piezas de contenido/mes</li>
-                <li>Gestión 1 red social</li>
-                <li>Reporte mensual</li>
+                <li>Grabación y edición de contenido</li>
+                <li>Edición rápida y eficiente</li>
+                <li>Entregas listas para publicar</li>
               </ul>
               <a href="#contacto" class="cta buy" data-select-plan="Standard">Empezar</a>
             </div>
 
-            <div class="card col-4" data-plan="Premium">
-              <h3>Premium</h3>
-              <div class="price">550€ / mes</div>
+            <div class="card col-4" data-plan="Profesional">
+              <span class="badge-best" aria-label="Plan más vendido">Más vendido</span>
+              <h3>Profesional</h3>
+              <div class="price"><span class="current">550€ / mes</span></div>
+              <div class="plan-divider" role="separator" aria-hidden="true"></div>
+              <div class="pieces-per-month" aria-label="Piezas de contenido al mes">Todo lo incluido en el plan Standard</div>
+              <div class="pieces-per-month" aria-label="Piezas de contenido al mes">8 piezas de contenido / mes</div>
+              <div class="plan-divider" role="separator" aria-hidden="true"></div>
               <ul class="features">
-                <li>8–12 piezas de contenido/mes</li>
-                <li>Gestión hasta 2 redes</li>
-                <li>Optimización de campañas</li>
+                <li>Gestión de redes (Instagram y TikTok)</li>
+                <li>Marketing para empresa</li>
               </ul>
-              <a href="#contacto" class="cta buy" data-select-plan="Premium">Elegir Premium</a>
+              <a href="#contacto" class="cta buy" data-select-plan="Profesional">Elegir Profesional</a>
             </div>
 
-            <div class="card col-4" data-plan="Custom">
-              <h3>Custom</h3>
-              <div class="price">A medida</div>
+            <div class="card col-4" data-plan="Premium">
+                <span class="badge-best-red" aria-label="En oferta">En oferta</span>
+              <h3>Premium</h3>
+              <div class="price"><span class="current">850€ / mes</span><span class="old-price">1000€</span></div>
+              <div class="plan-divider" role="separator" aria-hidden="true"></div>
+              <div class="pieces-per-month" aria-label="Piezas de contenido al mes">Todo lo incluido en el plan Profesional</div>
+              <div class="pieces-per-month" aria-label="Piezas de contenido al mes">12 piezas de contenido / mes</div>
+              <div class="plan-divider" role="separator" aria-hidden="true"></div>
               <ul class="features">
-                <li>Equipo y horas según objetivos</li>
-                <li>Mix de contenido + ads</li>
-                <li>Roadmap trimestral</li>
+                <li>Creación y mantenimiento web</li>
+                <li>Análisis y seguimiento</li>
+                <li>Soporte prioritario</li>
               </ul>
-              <a href="#contacto" class="btn-ghost buy" data-select-plan="Custom">Pedir presupuesto</a>
+              <a href="#contacto" class="cta buy" data-select-plan="Premium">Elegir Premium</a>
             </div>
           </div>
         </div>
@@ -378,7 +412,13 @@
           <h2 class="section-title">Contacto</h2>
           <p class="muted-center">Cuéntanos brevemente qué necesitas y te respondemos en 24–48h.</p>
 
-          <form action="" method="post">
+          <div class="contact-actions">
+            <a class="cta" target="_blank" rel="noopener" aria-label="Contactar por WhatsApp"
+               href="https://wa.me/34600000000?text=Hola%2C%20me%20gustar%C3%ADa%20informaci%C3%B3n%20sobre%20vuestros%20servicios%20de%20marketing%20digital.">WhatsApp</a>
+            <a id="toggle-form" type="button" class="btn-ghost" aria-expanded="false">Usar formulario</a>
+          </div>
+
+          <form action="" method="post" id="contact-form" hidden>
             <input type="hidden" name="plan" id="plan-field" />
 
             <div class="field half">
@@ -401,7 +441,7 @@
               <label for="mensaje">Mensaje</label>
               <textarea id="mensaje" name="mensaje" placeholder="Cuéntanos tu proyecto en 3–4 líneas" required></textarea>
             </div>
-            <button class="submit" type="submit">Enviar</button>
+            <button class="submit"  type="submit">Enviar</button>
           </form>
         </div>
       </section>
@@ -414,6 +454,9 @@
     </footer>
 
     <!-- Botón de WhatsApp ahora está en el navbar -->
+
+    <!-- FAB móvil para ir a Planes; se muestra solo al estar en sección Servicios -->
+    <a href="#planes" id="fab-planes" class="fab-planes" aria-label="Ver planes">Ver planes</a>
 
     <script>
       // Año actual en footer
@@ -428,7 +471,67 @@
         });
       });
 
-      // Scroll JS por secciones eliminado para evitar interferencias en móviles/desktop.
+      // Mostrar el FAB de "Ver planes" solo cuando la sección Servicios esté visible (móvil)
+      (function(){
+        const fab = document.getElementById('fab-planes');
+        const servicios = document.getElementById('servicios');
+        const planesTitle = document.querySelector('#planes .section-title');
+        if (!fab || !servicios) return;
+
+        const isMobile = () => window.matchMedia('(max-width: 720px)').matches;
+        let obs;
+        let isServiciosVisible = false;
+        let isPlanesTitleVisible = false;
+
+        const refresh = () => {
+          const shouldShow = isMobile() && isServiciosVisible && !isPlanesTitleVisible;
+          fab.classList.toggle('show', shouldShow);
+        };
+        const setup = () => {
+          if (obs) obs.disconnect();
+          if (!isMobile()) { fab.classList.remove('show'); return; }
+          const options = { root: null, threshold: [0, 0.1, 0.2], rootMargin: '0px 0px -10% 0px' };
+          obs = new IntersectionObserver((entries)=>{
+            entries.forEach(e => {
+              if (e.target === servicios) {
+                isServiciosVisible = e.isIntersecting;
+              } else if (planesTitle && e.target === planesTitle) {
+                isPlanesTitleVisible = e.isIntersecting;
+              }
+            });
+            refresh();
+          }, options);
+          obs.observe(servicios);
+          if (planesTitle) obs.observe(planesTitle);
+          // Estado inicial
+          isServiciosVisible = location.hash === '#servicios';
+          isPlanesTitleVisible = false;
+          refresh();
+        };
+        setup();
+        window.addEventListener('hashchange', () => {
+          if (!isMobile()) return;
+          isServiciosVisible = (location.hash === '#servicios');
+          refresh();
+        });
+        window.addEventListener('resize', () => { if (obs) obs.disconnect(); setup(); }, { passive: true });
+      })();
+
+      // Mostrar/ocultar formulario de contacto al pulsar el botón
+      (function(){
+        const btn = document.getElementById('toggle-form');
+        const form = document.getElementById('contact-form');
+        if (!btn || !form) return;
+        // Garantiza que empiece oculto
+        form.hidden = true;
+        btn.addEventListener('click', () => {
+          form.hidden = !form.hidden;
+          const expanded = !form.hidden;
+          btn.setAttribute('aria-expanded', String(expanded));
+          btn.textContent = expanded ? 'Ocultar formulario' : 'Formulario';
+          if (expanded) form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+      })();
     </script>
   </body>
 </html>
