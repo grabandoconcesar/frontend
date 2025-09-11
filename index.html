@@ -11,9 +11,9 @@
         --panel: #111318;
         --text: #e8eaed;
         --muted: #c8ccd2;
-        --brand: #2563eb;
-        --brand-600: #1d4ed8;
-        --accent: #14b8a6;
+        --brand: #28a745;
+        --brand-600: #079039;
+        --accent: #14b840;
         --border: #1f2937;
         --whatsapp: #25D366;
       }
@@ -51,9 +51,9 @@
       nav a { opacity: .92; margin-left: 22px; font-weight: 500; }
       nav a:hover:not(.btn-wa) { color: var(--accent); }
       .cta {
-        padding: 10px 16px; margin-left: 18px; border-radius: 10px; font-weight: 600; color: white;
+        padding: 10px 16px; border-radius: 10px; font-weight: 600; color: white;
         background: linear-gradient(180deg, var(--brand) 0%, var(--brand-600) 100%);
-        box-shadow: 0 8px 24px rgba(37,99,235,.35);
+        box-shadow: 0 4px 30px rgba(4, 140, 45, 0.35);
       }
       .cta:hover { filter: brightness(1.08); }
 
@@ -66,6 +66,8 @@
       .hero h1 { font-size: clamp(28px, 5vw, 46px); line-height: 1.1; margin: 0 0 12px; }
       .hero p { margin: 0 auto 26px; color: var(--muted); max-width: 720px; }
       .hero .actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+      .hero > .container { display: flex; flex-direction: column; height: calc(100svh - var(--nav-h)); gap: 16px; }
+      .services > .container { display: flex; flex-direction: column; height: calc(100svh - var(--nav-h)); gap: 12px; }
       .btn-ghost { padding: 10px 16px; border-radius: 10px; border: 1px solid var(--border); }
       .btn-ghost:hover { border-color: color-mix(in oklab, var(--border), white 12%); }
 
@@ -75,10 +77,31 @@
       .section-title { font-size: clamp(22px, 3.5vw, 32px); margin: 0 0 22px; text-align: center; }
       .muted-center { color: var(--muted); text-align: center; margin: 0 auto 28px; max-width: 760px; }
 
-      /* Inline services (fits in first snap) */
-      .services-inline { list-style: none; padding: 0; margin: 18px auto 0; display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
-      .services-inline li { border: 1px solid var(--border); background: color-mix(in oklab, var(--panel) 88%, transparent); padding: 10px 12px; border-radius: 10px; color: var(--muted); font-weight: 600; }
-      .services-inline strong { color: var(--text); font-weight: 700; }
+      /* Services window inside first section */
+      .services { display: flex; flex-direction: column; flex: 1 1 auto; min-height: 0; }
+      .services-header { margin-top: 4px; }
+      .services-window { flex: 1 1 auto; min-height: 0; height: 100%; box-sizing: border-box; border: 1px solid var(--border); border-radius: 14px; overflow: hidden; background: color-mix(in oklab, var(--panel) 86%, transparent); }
+      .services-carousel { height: 100%; display: flex; align-items: stretch; gap: 12px; overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory; scroll-behavior: smooth; padding: 8px 12px; -webkit-overflow-scrolling: touch; touch-action: pan-x; }
+      .service-slide { flex: 0 0 100%; height: 95%; scroll-snap-align: center; scroll-snap-stop: always; border-radius: 12px; border: 1px solid var(--border); background: #0f1117; display: flex; text-align: center; padding: 0; box-sizing: border-box; }
+      .service-slide > div { flex: 1 1 auto; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 24px; }
+      .service-slide h3 { margin: 0 0 8px; font-size: clamp(18px, 3vw, 22px); }
+      .service-slide p { margin: 0; color: var(--muted); max-width: 58ch; }
+
+      /* Desktop: servicios como antes (grid, sin ventana a altura completa) */
+      @media (min-width: 721px) {
+        .hero > .container { height: auto; }
+        .services { flex: 0 0 auto; }
+        .services-window { height: auto; min-height: 0; overflow: visible; background: transparent; border: 0; padding: 0; }
+        .services-carousel {
+          display: grid; grid-template-columns: repeat(3, 1fr);
+          gap: 16px; height: auto; overflow: visible; padding: 0; scroll-snap-type: none;
+        }
+        .service-slide {
+          flex: initial; height: auto; scroll-snap-align: unset; scroll-snap-stop: unset;
+          border-radius: 14px; border: 1px solid var(--border); background: color-mix(in oklab, var(--panel) 88%, transparent);
+          text-align: left; display: block; padding: 18px;
+        }
+      }
 
       /* Cards grid */
       .grid { display: grid; gap: 16px; grid-template-columns: repeat(12, 1fr); }
@@ -97,7 +120,7 @@
       .price { font-size: 30px; font-weight: 800; margin: 8px 0 14px; }
       .features { list-style: none; padding: 0; margin: 0 0 18px; color: var(--muted); }
       .features li { margin: 6px 0; }
-      .buy { margin-top: auto; display: inline-block; }
+      .buy { margin-top: auto; display: block; text-align: center; align-self: stretch; width: 100%; box-sizing: border-box; }
 
       /* Contact */
       form { display: grid; gap: 12px; grid-template-columns: repeat(12,1fr); }
@@ -120,6 +143,29 @@
 
       /* Mobile: Planes como carrusel vertical */
       @media (max-width: 720px) {
+        /* Servicios: carrusel horizontal con snap (flex, más compatible) */
+        .services-inline {
+          display: flex;
+          overflow-x: auto;
+          overflow-y: visible;
+          scroll-snap-type: x mandatory;
+          scroll-behavior: smooth;
+          gap: 12px;
+          padding: 12px 12px 0;
+          -webkit-overflow-scrolling: touch;
+          touch-action: pan-x;
+          justify-content: initial; /* ignora centrado para carrusel */
+        }
+        .services-inline li {
+          flex: 0 0 85%; /* cada item ocupa el 85% del ancho */
+          scroll-snap-align: center; scroll-snap-stop: always;
+          border-radius: 14px;
+          padding: 18px;
+          min-height: 120px;
+          display: flex; align-items: center; justify-content: center;
+          text-align: center;
+        }
+
         .pricing.snap { align-items: stretch; }
         .pricing .container { display: flex; flex-direction: column; height: 100%; }
         .pricing .section-title { margin-top: 16px; }
@@ -166,9 +212,7 @@
           <span>GrabandoconCésar</span>
         </div>
         <nav>
-          <a href="#planes" class="cta">Ver Planes</a>
-          <a class="btn-ghost" aria-label="Contactar"
-             href="#contacto">
+          <a class="btn-ghost" aria-label="Contactar"href="#contacto">
             Contacto
           </a>
         </nav>
@@ -179,23 +223,67 @@
       <!-- Sección 1: Hero + Servicios (100% viewport) -->
       <section id="inicio" class="snap hero">
         <div class="container">
-          <h1>Creación de contenido, gestión de RRSS y marketing digital</h1>
+          <h1>Creación y gestión de contenido digital</h1>
           <p>Impulsa tu marca con contenido consistente, crecimiento en redes y campañas medibles. Estrategia y ejecución, sin complicaciones.</p>
           <div class="actions">
             <a class="cta" href="#planes">Ver planes</a>
-            <a class="btn-ghost" href="#contacto">Hablar ahora</a>
+            <a class="btn-ghost" href="#servicios">Ver servicios</a>
           </div>
 
-          <ul class="services-inline" aria-label="Servicios principales">
-            <li><strong>Contenido</strong> · Reels, Shorts, TikTok</li>
-            <li><strong>RRSS</strong> · Calendario y comunidad</li>
-            <li><strong>Estrategia</strong> · Pilares y tono</li>
-            <li><strong>Ads & Analítica</strong> · Meta/Google</li>
-          </ul>
         </div>
       </section>
 
-      <!-- Sección 2: Planes (100% viewport) -->
+      <!-- Sección 2: Servicios (100% viewport) -->
+      <section id="servicios" class="snap services">
+        <div class="container">
+          <div class="services-header">
+            <h2 class="section-title">Servicios</h2>
+            <p class="muted-center">Paquetes claros, ejecución ágil y enfoque en resultados. Solo lo que aporta valor.</p>
+          </div>
+          <div class="services-window">
+            <div class="services-carousel" aria-label="Servicios principales">
+              <article class="service-slide">
+                <div>
+                  <h3>Creación de contenido</h3>
+                  <p>Guiones, edición, copy y piezas para Reels, Shorts y TikTok.</p>
+                </div>
+              </article>
+              <article class="service-slide">
+                <div>
+                  <h3>Gestión de redes</h3>
+                  <p>Calendario, publicación, community management y optimización continua.</p>
+                </div>
+              </article>
+              <article class="service-slide">
+                <div>
+                  <h3>Estrategia digital</h3>
+                  <p>Definición de objetivos, tono de marca, pilares y roadmap.</p>
+                </div>
+              </article>
+              <article class="service-slide">
+                <div>
+                  <h3>Publicidad (Ads)</h3>
+                  <p>Campañas en Meta/Google con seguimiento y ajustes semanales.</p>
+                </div>
+              </article>
+              <article class="service-slide">
+                <div>
+                  <h3>Email & CRM</h3>
+                  <p>Flujos, newsletters y automatizaciones sencillas orientadas a conversión.</p>
+                </div>
+              </article>
+              <article class="service-slide">
+                <div>
+                  <h3>Analítica & Reporting</h3>
+                  <p>KPIs claros, paneles simples y aprendizajes accionables.</p>
+                </div>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Sección 3: Planes (100% viewport) -->
       <section id="planes" class="pricing snap">
         <div class="container">
           <h2 class="section-title">Planes de suscripción</h2>
@@ -238,7 +326,7 @@
         </div>
       </section>
 
-      <!-- Sección 3: Contacto (100% viewport) -->
+      <!-- Sección 4: Contacto (100% viewport) -->
       <section id="contacto" class="snap">
         <div class="container">
           <h2 class="section-title">Contacto</h2>
@@ -334,7 +422,7 @@
 
         // Evita capturar en áreas scroll internas (ej: carrusel de planes en móvil)
         const inInnerScroller = (ev) => {
-          return !!(ev.target && ev.target.closest('.pricing .grid'));
+          return !!(ev.target && ev.target.closest('.pricing .grid, .services-inline, .services-carousel'));
         };
 
         // Wheel (ratón / touchpad)
@@ -363,7 +451,7 @@
         let touchY = null;
         let touchInScroller = false;
         window.addEventListener('touchstart', (ev) => {
-          touchInScroller = !!(ev.target && ev.target.closest('.pricing .grid'));
+          touchInScroller = !!(ev.target && ev.target.closest('.pricing .grid, .services-inline, .services-carousel'));
           if (ev.touches && ev.touches.length) touchY = ev.touches[0].clientY;
         }, { passive: true });
         window.addEventListener('touchend', (ev) => {
