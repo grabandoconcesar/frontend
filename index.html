@@ -49,15 +49,17 @@
       .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; letter-spacing: .3px; }
       .brand-badge {
         width: 28px; height: 28px; border-radius: 7px; display: grid; place-items: center;
-        background: linear-gradient(135deg, #656565 0%, #000000 75%);
-        box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+        background: linear-gradient(135deg, var(--primary) 0%, var(--primary-600) 50%);
+        opacity: 75%;
+        
+        box-shadow: 0 6px 20px rgba(37, 99, 235, .5);
       }
       nav a { opacity: .92; margin-left: 22px; font-weight: 500; }
       nav a:hover:not(.btn-wa) { color: var(--primary); }
       .cta {
         padding: 10px 16px; border-radius: 10px; font-weight: 600; color: white;
         background: linear-gradient(180deg, var(--primary) 0%, var(--primary-600) 100%);
-        box-shadow: 0 4px 30px rgba(37, 99, 235, 0.35);
+        box-shadow: 0 4px 30px rgba(37, 99, 235, 1);
       }
       .cta:hover { filter: brightness(1.08); }
 
