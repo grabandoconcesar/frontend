@@ -49,8 +49,8 @@
       .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; letter-spacing: .3px; }
       .brand-badge {
         width: 28px; height: 28px; border-radius: 7px; display: grid; place-items: center;
-        background: linear-gradient(135deg, var(--primary) 0%, var(--primary-600) 100%);
-        box-shadow: 0 6px 20px rgba(37,99,235,.28);
+        background: linear-gradient(135deg, #656565 0%, #000000 75%);
+        box-shadow: 0 6px 20px rgba(0,0,0,0.25);
       }
       nav a { opacity: .92; margin-left: 22px; font-weight: 500; }
       nav a:hover:not(.btn-wa) { color: var(--primary); }
@@ -66,7 +66,121 @@
       .snap > .container { width: min(1100px, 92vw); margin: 0 auto; }
 
       /* Hero */
-      .hero { text-align: center; }
+      .hero { position: relative; text-align: center; overflow: hidden; }
+      .hero-orbs { position: absolute; inset: 0; pointer-events: none; z-index: -1; overflow: hidden; }
+      .hero-orb {
+        --size: 170px;
+        --offset-x: 0px;
+        --offset-top: 16px;
+        --drift-x: 0px;
+        --travel: max(140px, calc((100svh - var(--nav-h)) - var(--size) - 90px));
+        --duration: 18s;
+        --delay: 0s;
+        --opacity-min: 0.42;
+        --opacity-max: 0.68;
+        position: absolute;
+        top: 0;
+        left: 50%;
+        width: var(--size);
+        height: var(--size);
+        margin-left: calc(var(--size) / -2);
+        border-radius: 50%;
+        background: radial-gradient(circle at 32% 28%,
+          color-mix(in oklab, var(--primary) 24%, white 6%) 0%,
+          color-mix(in oklab, var(--primary) 12%, transparent) 55%,
+          transparent 82%);
+        mix-blend-mode: screen;
+        filter: blur(0.5px);
+        transform: translate3d(var(--offset-x), var(--offset-top), 0) scale(0.98);
+        opacity: var(--opacity-min);
+        animation: hero-bounce var(--duration) cubic-bezier(.44,.03,.16,1) infinite alternate,
+                   hero-glimmer calc(var(--duration) * 1.5) ease-in-out infinite;
+        animation-delay: var(--delay);
+      }
+      .hero-orb.orb-a {
+        --size: 180px;
+        --offset-x: -18vw;
+        --offset-top: 18px;
+        --drift-x: 6vw;
+        --travel: max(150px, calc((100svh - var(--nav-h)) - var(--size) - 110px));
+        --duration: 22s;
+        --delay: -5s;
+        --opacity-min: 0.45;
+        --opacity-max: 0.7;
+      }
+      .hero-orb.orb-b {
+        --size: 165px;
+        --offset-x: 10vw;
+        --offset-top: 32px;
+        --drift-x: -6vw;
+        --travel: max(140px, calc((100svh - var(--nav-h)) - var(--size) - 130px));
+        --duration: 18s;
+        --delay: -2s;
+        --opacity-min: 0.4;
+        --opacity-max: 0.62;
+      }
+      .hero-orb.orb-c {
+        --size: 150px;
+        --offset-x: -6vw;
+        --offset-top: 46px;
+        --drift-x: 5vw;
+        --travel: max(160px, calc((100svh - var(--nav-h)) - var(--size) - 100px));
+        --duration: 16s;
+        --delay: -8s;
+        --opacity-min: 0.38;
+        --opacity-max: 0.58;
+      }
+      .hero-orb.orb-d {
+        --size: 175px;
+        --offset-x: 20vw;
+        --offset-top: 28px;
+        --drift-x: -4vw;
+        --travel: max(150px, calc((100svh - var(--nav-h)) - var(--size) - 120px));
+        --duration: 20s;
+        --delay: -11s;
+        --opacity-min: 0.36;
+        --opacity-max: 0.6;
+      }
+      .hero-orb.orb-e {
+        --size: 160px;
+        --offset-x: -22vw;
+        --offset-top: 36px;
+        --drift-x: 7vw;
+        --travel: max(170px, calc((100svh - var(--nav-h)) - var(--size) - 90px));
+        --duration: 19s;
+        --delay: -13s;
+        --opacity-min: 0.37;
+        --opacity-max: 0.6;
+      }
+      .hero-orb.orb-f {
+        --size: 155px;
+        --offset-x: 5vw;
+        --offset-top: 20px;
+        --drift-x: -5vw;
+        --travel: max(155px, calc((100svh - var(--nav-h)) - var(--size) - 140px));
+        --duration: 21s;
+        --delay: -7s;
+        --opacity-min: 0.35;
+        --opacity-max: 0.58;
+      }
+      @keyframes hero-bounce {
+        0% {
+          transform: translate3d(var(--offset-x), var(--offset-top), 0) scale(0.98);
+          opacity: var(--opacity-min);
+        }
+        48% {
+          transform: translate3d(calc(var(--offset-x) + var(--drift-x)), calc(var(--offset-top) + var(--travel) * 0.92), 0) scale(1.04);
+          opacity: var(--opacity-max);
+        }
+        100% {
+          transform: translate3d(var(--offset-x), calc(var(--offset-top) + var(--travel)), 0) scale(0.99);
+          opacity: var(--opacity-min);
+        }
+      }
+      @keyframes hero-glimmer {
+        0%, 100% { filter: blur(0.6px); }
+        50% { filter: blur(1.1px); }
+      }
       .hero h1 { font-size: clamp(28px, 5vw, 46px); line-height: 1.1; margin: 0 0 12px; }
       .hero p { margin: 0 auto 26px; color: var(--muted); max-width: 720px; }
       .hero .actions { display: flex; gap: 12px; justify-content: center; align-items: center; flex-direction: column; }
@@ -132,7 +246,19 @@
       /* Cards grid */
       .grid { display: grid; gap: 16px; grid-template-columns: repeat(12, 1fr); }
       .col-4 { grid-column: span 12; }
-      @media (min-width: 720px) { .col-4 { grid-column: span 4; } }
+      @media (min-width: 720px) {
+        .col-4 { grid-column: span 4; }
+      }
+      .col-under-profesional { 
+        grid-column: span 12; 
+        margin-top: 50px;
+      }
+      @media (min-width: 720px) {
+        .col-under-profesional {
+          grid-column: 5 / span 4;
+          grid-row: 2;
+        }
+      }
       .card {
         background: color-mix(in oklab, var(--panel) 88%, transparent);
         border: 1px solid var(--border);
@@ -144,6 +270,7 @@
       /* Pricing */
       .pricing .card { padding: 22px; display: flex; flex-direction: column; position: relative; overflow: hidden; }
       .price { font-size: 30px; font-weight: 800; margin: 8px 0 14px; }
+      .tax-note { margin: 0 0 12px; font-size: 13px; color: var(--muted); }
       .price .old-price { font-size: 14px; font-weight: 600; color: var(--muted); text-decoration: line-through; margin-left: 8px; opacity: .9; }
       .plan-divider { height: 1px; background: var(--border); border-radius: 1px; margin: 6px 0 10px; }
       .pieces-per-month { font-weight: 800; color: var(--text); letter-spacing: .2px; margin: 0 0 14px; }
@@ -160,8 +287,8 @@
         display: inline-block;
         padding: 6px 10px;
         border-radius: 999px;
-        background: transparent;
-        color: var(--text);
+        background: #000000;
+        color: #FFFFFF;
         font-weight: 800;
         font-size: calc(12px * 1.05);
         letter-spacing: .2px;
@@ -171,22 +298,6 @@
       }
       /* Make "Más vendido" 5% smaller than the default ribbon */
       .badge-best { font-size: calc(12px * 1.05 * 0.95); }
-
-      /* Contact */
-      form { display: grid; gap: 12px; grid-template-columns: repeat(12,1fr); }
-      .field { grid-column: span 12; display: flex; flex-direction: column; gap: 6px; }
-      @media (min-width: 720px) {
-        .field.half { grid-column: span 6; }
-      }
-      label { font-weight: 600; font-size: 14px; }
-      input, select, textarea {
-        background: var(--panel); color: var(--text); border: 1px solid var(--border); border-radius: 10px;
-        padding: 12px 12px; font: inherit;
-      }
-      textarea { min-height: 110px; resize: vertical; }
-      input:focus, select:focus, textarea:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(37,99,235,.2); }
-      .submit { grid-column: 1 / -1; justify-self: center; padding: 12px 18px; border-radius: 12px; background: linear-gradient(180deg, var(--primary) 0%, var(--primary-600) 100%); color: #ffffff; font-weight: 800; border: 0; cursor: pointer; box-shadow: 0 4px 20px rgba(37, 99, 235, 0.25); }
-      .submit:hover { filter: brightness(1.05); }
 
       /* Footer */
       footer { padding: 28px 0 80px; color: var(--muted); text-align: center; border-top: 1px solid var(--border); }
@@ -218,7 +329,7 @@
           scroll-snap-align: start;
           min-height: 100%; /* cada card ocupa toda el área visible del carrusel */
           margin: 0 0 12px;
-          display: flex; flex-direction: column; justify-content: flex-start;
+            display: flex; flex-direction: column; justify-content: flex-start;
         }
       }
 
@@ -246,6 +357,37 @@
       .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
       [hidden] { display: none !important; }
       .contact-actions { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin:12px 0 18px; }
+
+      /* Scroll animations */
+      .scroll-fx {
+        opacity: 0;
+        transform: translateY(28px);
+        transition: opacity 0.55s ease, transform 0.55s ease;
+        will-change: opacity, transform;
+      }
+      .scroll-fx.in-view {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .scroll-fx.out-view {
+        opacity: 0;
+        transform: translateY(-28px);
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .scroll-fx,
+        .scroll-fx.in-view,
+        .scroll-fx.out-view {
+          transition: none;
+          opacity: 1 !important;
+          transform: none !important;
+        }
+        .hero-orb {
+          animation: none !important;
+          opacity: 0.45 !important;
+          filter: blur(0.6px) !important;
+          transform: translate3d(var(--offset-x), var(--offset-top), 0) scale(1) !important;
+        }
+      }
     </style>
   </head>
   <body>
@@ -258,7 +400,7 @@
               <circle cx="12" cy="13" r="4"/>
             </svg>
           </span>
-          <span>GrabandoconCésar</span>
+          <span>GrabandoConCesar</span>
         </div>
         <nav>
           <a class="btn-ghost" aria-label="Contactar"href="#contacto">
@@ -270,10 +412,18 @@
 
     <main>
       <!-- Sección 1: Hero + Servicios (100% viewport) -->
-      <section id="inicio" class="snap hero">
+      <section id="inicio" class="snap hero" style="margin-top: 0;">
+        <div class="hero-orbs" aria-hidden="true">
+          <span class="hero-orb orb-a"></span>
+          <span class="hero-orb orb-b"></span>
+          <span class="hero-orb orb-c"></span>
+          <span class="hero-orb orb-d"></span>
+          <span class="hero-orb orb-e"></span>
+          <span class="hero-orb orb-f"></span>
+        </div>
         <div class="container">
           <h1>Creación y gestión de contenido digital</h1>
-          <p>Impulsa tu marca con contenido consistente, crecimiento en redes y campañas medibles. Estrategia y ejecución, sin complicaciones.</p>
+          <p>Impulsa tu marca con contenido llamativo, estrategia y ejecución, sin complicaciones.</p>
           <div class="actions">
             <a class="btn-ghost" href="#servicios">Ver servicios</a>
             <a class="cta" href="#planes">Ver planes</a>
@@ -287,7 +437,7 @@
         
           <div class="services-header">
             <h2 class="section-title">Servicios</h2>
-            <p class="muted-center">Paquetes claros, ejecución ágil y enfoque en resultados. Solo lo que aporta valor.</p>
+            <p class="muted-center">Servicios claros enfocados en los resultados. Solo lo que aporta valor.</p>
           </div>
           <div class="services-window">
             <div class="services-carousel" aria-label="Servicios principales">
@@ -382,48 +532,66 @@
 
           <div class="grid">
             <div class="card col-4" data-plan="Standard">
+              <span class="badge-best-red" aria-label="Oferta">Oferta</span>
               <h3>Standard</h3>
-              <div class="price">300€ / mes</div>
+              <div class="price">290€ / mes<span class="old-price">350€</span></div>
+              <p class="tax-note">Precio sin IVA.</p>
               <div class="plan-divider" role="separator" aria-hidden="true"></div>
               <div class="pieces-per-month" aria-label="Piezas de contenido al mes">4 piezas de contenido / mes</div>
               <div class="plan-divider" role="separator" aria-hidden="true"></div>
               <ul class="features">
                 <li>Grabación y edición de contenido</li>
-                <li>Edición rápida y eficiente</li>
-                <li>Entregas listas para publicar</li>
+                <li>Publicación en redes</li>
+                <li>Desarrollo de estrategia de contenido</li>
               </ul>
-              <a href="#contacto" class="cta buy" data-select-plan="Standard">Empezar</a>
+              <a href="https://buy.stripe.com/00waEX4UL3HI0vUcMh4ko00" class="cta buy" data-select-plan="Standard">Elegir standard</a>
             </div>
 
             <div class="card col-4" data-plan="Profesional">
               <span class="badge-best" aria-label="Plan más vendido">Más vendido</span>
               <h3>Profesional</h3>
               <div class="price"><span class="current">550€ / mes</span></div>
+              <p class="tax-note">Precio sin IVA.</p>
               <div class="plan-divider" role="separator" aria-hidden="true"></div>
               <div class="pieces-per-month" aria-label="Piezas de contenido al mes">Todo lo incluido en el plan Standard</div>
               <div class="pieces-per-month" aria-label="Piezas de contenido al mes">8 piezas de contenido / mes</div>
               <div class="plan-divider" role="separator" aria-hidden="true"></div>
               <ul class="features">
-                <li>Gestión de redes (Instagram y TikTok)</li>
-                <li>Marketing para empresa</li>
+                <li>Gestión completa de redes</li>
+                <li>Estrategia y marketing para empresa</li>
+                <li>Optimización de publicaciones</li>
               </ul>
-              <a href="#contacto" class="cta buy" data-select-plan="Profesional">Elegir Profesional</a>
+              <a href="https://buy.stripe.com/00w5kD9b1diifqOcMh4ko01" class="cta buy" data-select-plan="Profesional">Elegir Profesional</a>
             </div>
 
             <div class="card col-4" data-plan="Premium">
-                <span class="badge-best-red" aria-label="Oferta">Oferta</span>
               <h3>Premium</h3>
-              <div class="price"><span class="current">850€ / mes</span><span class="old-price">1000€</span></div>
+              <div class="price"><span class="current">900€ / mes</span></div>
+              <p class="tax-note">Precio sin IVA.</p>
               <div class="plan-divider" role="separator" aria-hidden="true"></div>
               <div class="pieces-per-month" aria-label="Piezas de contenido al mes">Todo lo incluido en el plan Profesional</div>
-              <div class="pieces-per-month" aria-label="Piezas de contenido al mes">12 piezas de contenido / mes</div>
+              <div class="pieces-per-month" aria-label="Piezas de contenido al mes">16 piezas de contenido / mes</div>
               <div class="plan-divider" role="separator" aria-hidden="true"></div>
               <ul class="features">
-                <li>Creación y mantenimiento web</li>
-                <li>Análisis y seguimiento</li>
                 <li>Soporte prioritario</li>
+                <li>Análisis y seguimiento avanzado</li>
               </ul>
-              <a href="#contacto" class="cta buy" data-select-plan="Premium">Elegir Premium</a>
+              <a href="https://buy.stripe.com/00wcN51Izguua6u7rX4ko03" class="cta buy" data-select-plan="Premium">Elegir Premium</a>
+            </div>
+
+            <div class="card col-4 col-under-profesional" data-plan="Individual">
+              <h3>Compra individual</h3>
+              <div class="price"><span class="current">120€ / vídeo</span></div>
+              <p class="tax-note">Precio sin IVA.</p>
+              <div class="plan-divider" role="separator" aria-hidden="true"></div>
+              <div class="pieces-per-month" aria-label="Compra individual">Incluye grabación, edición y entrega del contenido</div>
+              <div class="plan-divider" role="separator" aria-hidden="true"></div>
+              <ul class="features">
+                <li>Precio único por una pieza de contenido</li>
+                <li>Ideal para proyectos puntuales</li>
+                <li>Los gastos de desplazamiento derivados de la actividad se facturan aparte</li>
+              </ul>
+              <a href="https://buy.stripe.com/9B64gz3QH4LMemKfYt4ko02" class="cta buy" data-select-plan="Individual">Elegir individual</a>
             </div>
           </div>
         </div>
@@ -438,41 +606,15 @@
           <div class="contact-actions">
             <a class="btn-wa" target="_blank" rel="noopener" aria-label="Contactar por WhatsApp"
                href="https://wa.me/34684727915?text=%C2%A1Hola%20C%C3%A9sar!%20Me%20ha%20llamado%20la%20atenci%C3%B3n%20tu%20trabajo%20y%20me%20gustar%C3%ADa%20hablar%20para%20ver%20si%20podemos%20trabajar%20juntos.">WhatsApp</a>
-            <a id="toggle-form" type="button" class="btn-ghost" aria-expanded="false">Usar formulario</a>
+            <a class="btn-ghost" href="mailto:contacto@grabandoconcesar.com?subject=Quiero%20colaborar%20contigo" rel="noopener">Enviar email</a>
           </div>
-
-          <form action="" method="post" id="contact-form" hidden>
-            <input type="hidden" name="plan" id="plan-field" />
-
-            <div class="field half">
-              <label for="nombre">Nombre</label>
-              <input id="nombre" name="nombre" type="text" placeholder="Tu nombre" required />
-            </div>
-            <div class="field half">
-              <label for="email">Email</label>
-              <input id="email" name="email" type="email" placeholder="tucorreo@ejemplo.com" required />
-            </div>
-            <div class="field half">
-              <label for="empresa">Empresa (opcional)</label>
-              <input id="empresa" name="empresa" type="text" placeholder="Nombre de la empresa" />
-            </div>
-            <div class="field half">
-              <label for="telefono">Teléfono (opcional)</label>
-              <input id="telefono" name="telefono" type="tel" placeholder="+34 6XX XXX XXX" />
-            </div>
-            <div class="field">
-              <label for="mensaje">Mensaje</label>
-              <textarea id="mensaje" name="mensaje" placeholder="Cuéntanos tu proyecto en 3–4 líneas" required></textarea>
-            </div>
-            <button class="submit"  type="submit">Enviar</button>
-          </form>
         </div>
       </section>
     </main>
 
     <footer>
       <div class="container">
-        © <span id="year"></span> Agencia Digital · Estrategia, contenido y RRSS
+        GrabandoConCesar © <span id="year"></span> - Contenido digital y RRSS
       </div>
     </footer>
 
@@ -540,21 +682,49 @@
         window.addEventListener('resize', () => { if (obs) obs.disconnect(); setup(); }, { passive: true });
       })();
 
-      // Mostrar/ocultar formulario de contacto al pulsar el botón
+      // Animaciones al hacer scroll (especialmente en móvil)
       (function(){
-        const btn = document.getElementById('toggle-form');
-        const form = document.getElementById('contact-form');
-        if (!btn || !form) return;
-        // Garantiza que empiece oculto
-        form.hidden = true;
-        btn.addEventListener('click', () => {
-          form.hidden = !form.hidden;
-          const expanded = !form.hidden;
-          btn.setAttribute('aria-expanded', String(expanded));
-          btn.textContent = expanded ? 'Ocultar formulario' : 'Formulario';
-          if (expanded) form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        const supportsIntersectionObserver = 'IntersectionObserver' in window;
+        const candidates = new Set([
+          ...document.querySelectorAll('.snap > .container'),
+          ...document.querySelectorAll('.services-carousel .service-slide'),
+          ...document.querySelectorAll('.pricing .card'),
+          ...document.querySelectorAll('.section-title'),
+          ...document.querySelectorAll('.muted-center'),
+          ...document.querySelectorAll('.hero .actions a'),
+          ...document.querySelectorAll('.contact-actions > *')
+        ]);
+
+        const elements = Array.from(candidates).filter(Boolean);
+        if (!elements.length) return;
+
+        elements.forEach(el => el.classList.add('scroll-fx'));
+
+        if (!supportsIntersectionObserver) {
+          elements.forEach(el => el.classList.add('in-view'));
+          return;
+        }
+
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            const el = entry.target;
+            if (entry.isIntersecting) {
+              el.classList.add('in-view');
+              el.classList.remove('out-view');
+              el.dataset.scrollSeen = 'true';
+            } else if (el.dataset.scrollSeen === 'true') {
+              el.classList.remove('in-view');
+              el.classList.add('out-view');
+            }
+          });
+        }, {
+          threshold: 0.18,
+          rootMargin: '0px 0px -10% 0px'
         });
+
+        elements.forEach(el => observer.observe(el));
       })();
+
     </script>
   </body>
 </html>
