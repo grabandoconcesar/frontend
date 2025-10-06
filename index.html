@@ -272,6 +272,28 @@
         --opacity-min: 0.33;
         --opacity-max: 0.55;
       }
+      .contact-orb.orb-g {
+        --size: 140px;
+        --offset-x: -6vw;
+        --offset-top: 30px;
+        --drift-x: 14vw;
+        --travel: 140px;
+        --duration: 22s;
+        --delay: -9s;
+        --opacity-min: 0.32;
+        --opacity-max: 0.53;
+      }
+      .contact-orb.orb-h {
+        --size: 150px;
+        --offset-x: 32vw;
+        --offset-top: 80px;
+        --drift-x: -16vw;
+        --travel: 150px;
+        --duration: 24s;
+        --delay: -12s;
+        --opacity-min: 0.34;
+        --opacity-max: 0.55;
+      }
       @keyframes hero-bounce {
         0% {
           transform: translate3d(var(--offset-x), var(--offset-top), 0) scale(0.98);
@@ -383,7 +405,7 @@
       .tax-note { margin: 0 0 12px; font-size: 13px; color: var(--muted); }
       .limited-note { margin: 4px 0 12px; font-size: 12px; color: var(--muted); font-style: italic; opacity: .85; }
       .limited-inline { font-size: 11px; font-weight: 500; color: var(--muted); font-style: italic; margin-left: 4px; }
-      .price .old-price { font-size: 14px; font-weight: 600; color: var(--muted); margin-left: 8px; opacity: .9; }
+      .price .old-price { font-size: 14px; font-weight: 600; color: var(--muted); text-decoration: line-through; margin-left: 8px; opacity: .9; }
       .plan-divider { height: 1px; background: var(--border); border-radius: 1px; margin: 6px 0 10px; }
       .pieces-per-month { font-weight: 800; color: var(--text); letter-spacing: .2px; margin: 0 0 14px; }
       .features { list-style: none; padding: 0; margin: 0 0 18px; color: var(--muted); }
@@ -446,6 +468,18 @@
             display: flex; flex-direction: column; justify-content: flex-start;
         }
         .pricing .grid .card.video-first { order: -1; }
+
+        .contact { padding-top: 64px; padding-bottom: 64px; }
+        .contact-orbs { overflow: visible; }
+        .contact-orb { filter: blur(0.5px); }
+        .contact-orb.orb-a { --offset-x: -65vw; --offset-top: -60px; --travel: 260px; --size: 120px; }
+        .contact-orb.orb-b { --offset-x: 48vw; --offset-top: -30px; --travel: 240px; --size: 110px; }
+        .contact-orb.orb-c { --offset-x: -10vw; --offset-top: -80px; --travel: 280px; --size: 115px; }
+        .contact-orb.orb-d { --offset-x: 26vw; --offset-top: 20px; --travel: 260px; --size: 125px; }
+        .contact-orb.orb-e { --offset-x: -34vw; --offset-top: -20px; --travel: 250px; --size: 105px; }
+        .contact-orb.orb-f { --offset-x: 6vw; --offset-top: -100px; --travel: 280px; --size: 135px; }
+        .contact-orb.orb-g { --offset-x: -12vw; --offset-top: -140px; --travel: 300px; --size: 110px; }
+        .contact-orb.orb-h { --offset-x: 38vw; --offset-top: -80px; --travel: 270px; --size: 120px; }
       }
 
       /* FAB móvil para ir a Servicios (solo visible en sección Información) */
@@ -650,7 +684,7 @@
             <div class="card col-4" data-plan="Standard">
               <span class="badge-best-red" aria-label="Oferta">Oferta</span>
               <h3>Standard</h3>
-              <div class="price">290€ / mes<span class="old-price">350€<span class="limited-inline"> · Por tiempo limitado*</span></span></div>
+              <div class="price">290€ / mes<span class="old-price">350€</span><span class="limited-inline"> · Por tiempo limitado*</span></div>
               <p class="tax-note">Precio sin IVA.</p>
               <p class="limited-note">*El precio promocional se mantendrá de forma indefinida mientras la suscripción siga activa*</p>
               <div class="plan-divider" role="separator" aria-hidden="true"></div>
@@ -724,6 +758,8 @@
           <span class="contact-orb orb-d"></span>
           <span class="contact-orb orb-e"></span>
           <span class="contact-orb orb-f"></span>
+          <span class="contact-orb orb-g"></span>
+          <span class="contact-orb orb-h"></span>
         </div>
         <div class="container">
           <h2 class="section-title">Contacto</h2>
