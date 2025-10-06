@@ -165,6 +165,113 @@
         --opacity-min: 0.35;
         --opacity-max: 0.58;
       }
+      .contact {
+        position: relative;
+        overflow: hidden;
+        background: color-mix(in oklab, var(--panel) 30%, transparent);
+      }
+      .contact-orbs {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        z-index: -1;
+        overflow: hidden;
+      }
+      .contact-orb {
+        --size: 150px;
+        --offset-x: 0;
+        --offset-top: 40px;
+        --drift-x: 0;
+        --travel: 120px;
+        --duration: 20s;
+        --delay: 0s;
+        --opacity-min: 0.32;
+        --opacity-max: 0.55;
+        position: absolute;
+        top: 10%;
+        left: 50%;
+        width: var(--size);
+        height: var(--size);
+        margin-left: calc(var(--size) / -2);
+        border-radius: 50%;
+        background: radial-gradient(circle at 32% 28%,
+          color-mix(in oklab, var(--primary) 22%, white 8%) 0%,
+          color-mix(in oklab, var(--primary) 12%, transparent) 60%,
+          transparent 82%);
+        mix-blend-mode: screen;
+        filter: blur(0.6px);
+        transform: translate3d(var(--offset-x), var(--offset-top), 0) scale(0.95);
+        opacity: var(--opacity-min);
+        animation: hero-bounce var(--duration) cubic-bezier(.44,.03,.16,1) infinite alternate,
+                   hero-glimmer calc(var(--duration) * 1.6) ease-in-out infinite;
+        animation-delay: var(--delay);
+      }
+      .contact-orb.orb-a {
+        --size: 160px;
+        --offset-x: -28vw;
+        --offset-top: 10px;
+        --drift-x: 12vw;
+        --travel: 130px;
+        --duration: 24s;
+        --delay: -4s;
+        --opacity-min: 0.36;
+        --opacity-max: 0.58;
+      }
+      .contact-orb.orb-b {
+        --size: 140px;
+        --offset-x: 22vw;
+        --offset-top: 30px;
+        --drift-x: -10vw;
+        --travel: 115px;
+        --duration: 18s;
+        --delay: -7s;
+        --opacity-min: 0.3;
+        --opacity-max: 0.5;
+      }
+      .contact-orb.orb-c {
+        --size: 145px;
+        --offset-x: -8vw;
+        --offset-top: 120px;
+        --drift-x: 8vw;
+        --travel: 140px;
+        --duration: 19s;
+        --delay: -11s;
+        --opacity-min: 0.33;
+        --opacity-max: 0.54;
+      }
+      .contact-orb.orb-d {
+        --size: 155px;
+        --offset-x: 18vw;
+        --offset-top: 150px;
+        --drift-x: -12vw;
+        --travel: 150px;
+        --duration: 23s;
+        --delay: -15s;
+        --opacity-min: 0.34;
+        --opacity-max: 0.56;
+      }
+      .contact-orb.orb-e {
+        --size: 135px;
+        --offset-x: -18vw;
+        --offset-top: 200px;
+        --drift-x: 10vw;
+        --travel: 125px;
+        --duration: 21s;
+        --delay: -18s;
+        --opacity-min: 0.31;
+        --opacity-max: 0.5;
+      }
+      .contact-orb.orb-f {
+        --size: 175px;
+        --offset-x: 6vw;
+        --offset-top: 220px;
+        --drift-x: -8vw;
+        --travel: 160px;
+        --duration: 26s;
+        --delay: -20s;
+        --opacity-min: 0.33;
+        --opacity-max: 0.55;
+      }
       @keyframes hero-bounce {
         0% {
           transform: translate3d(var(--offset-x), var(--offset-top), 0) scale(0.98);
@@ -239,8 +346,8 @@
         .snap > .container { height: calc(100svh - var(--nav-h)); display: flex; flex-direction: column; }
         header { position: sticky; }
         /* Contacto: menos espacio y sin ocupar toda la altura */
-        #contacto.snap { min-height: auto; padding-top: 32px; padding-bottom: 32px; }
-        #contacto.snap > .container { height: auto; }
+      #contacto.snap { min-height: auto; padding-top: 32px; padding-bottom: 32px; }
+      #contacto.snap > .container { height: auto; }
         #contacto .section-title { margin-top: 20px; }
         footer { padding-top: 16px; padding-bottom: 60px; }
       }
@@ -274,8 +381,9 @@
       .pricing .card { padding: 22px; display: flex; flex-direction: column; position: relative; overflow: hidden; }
       .price { font-size: 30px; font-weight: 800; margin: 8px 0 14px; }
       .tax-note { margin: 0 0 12px; font-size: 13px; color: var(--muted); }
-      .limited-note { margin: -6px 0 12px; font-size: 12px; color: var(--muted); font-style: italic; opacity: .85; }
-      .price .old-price { font-size: 14px; font-weight: 600; color: var(--muted); text-decoration: line-through; margin-left: 8px; opacity: .9; }
+      .limited-note { margin: 4px 0 12px; font-size: 12px; color: var(--muted); font-style: italic; opacity: .85; }
+      .limited-inline { font-size: 11px; font-weight: 500; color: var(--muted); font-style: italic; margin-left: 4px; }
+      .price .old-price { font-size: 14px; font-weight: 600; color: var(--muted); margin-left: 8px; opacity: .9; }
       .plan-divider { height: 1px; background: var(--border); border-radius: 1px; margin: 6px 0 10px; }
       .pieces-per-month { font-weight: 800; color: var(--text); letter-spacing: .2px; margin: 0 0 14px; }
       .features { list-style: none; padding: 0; margin: 0 0 18px; color: var(--muted); }
@@ -388,7 +496,8 @@
           opacity: 1 !important;
           transform: none !important;
         }
-        .hero-orb {
+        .hero-orb,
+        .contact-orb {
           animation: none !important;
           opacity: 0.45 !important;
           filter: blur(0.6px) !important;
@@ -541,8 +650,7 @@
             <div class="card col-4" data-plan="Standard">
               <span class="badge-best-red" aria-label="Oferta">Oferta</span>
               <h3>Standard</h3>
-              <div class="price">290€ / mes<span class="old-price">350€</span></div>
-              <p class="limited-note">Oferta disponible por tiempo limitado</p>
+              <div class="price">290€ / mes<span class="old-price">350€<span class="limited-inline"> · Por tiempo limitado*</span></span></div>
               <p class="tax-note">Precio sin IVA.</p>
               <p class="limited-note">*El precio promocional se mantendrá de forma indefinida mientras la suscripción siga activa*</p>
               <div class="plan-divider" role="separator" aria-hidden="true"></div>
@@ -608,7 +716,15 @@
       </section>
 
       <!-- Sección 4: Contacto (100% viewport) -->
-      <section id="contacto" class="snap">
+      <section id="contacto" class="snap contact">
+        <div class="contact-orbs" aria-hidden="true">
+          <span class="contact-orb orb-a"></span>
+          <span class="contact-orb orb-b"></span>
+          <span class="contact-orb orb-c"></span>
+          <span class="contact-orb orb-d"></span>
+          <span class="contact-orb orb-e"></span>
+          <span class="contact-orb orb-f"></span>
+        </div>
         <div class="container">
           <h2 class="section-title">Contacto</h2>
           <p class="muted-center">Todos los canales en un solo lugar.</p>
