@@ -213,7 +213,7 @@
       .services-list li::after { content: "✓"; color: var(--whatsapp); font-weight: 900; margin-left: 12px; }
       .services-actions { display: flex; justify-content: center; gap: 12px; margin-top: 12px; }
 
-      /* Desktop: servicios como antes (grid, sin ventana a altura completa) */
+      /* Desktop: información como antes (grid, sin ventana a altura completa) */
       @media (min-width: 721px) {
         .hero > .container { height: auto; }
         .services > .container { height: auto; }
@@ -253,12 +253,13 @@
       }
       .col-under-profesional { 
         grid-column: span 12; 
-        margin-top: 50px;
+        margin-top: 0;
       }
       @media (min-width: 720px) {
         .col-under-profesional {
           grid-column: 5 / span 4;
           grid-row: 2;
+          margin-top: 50px;
         }
       }
       .card {
@@ -304,22 +305,24 @@
       /* Footer */
       footer { padding: 28px 0 80px; color: var(--muted); text-align: center; border-top: 1px solid var(--border); }
 
-      /* Mobile: Planes como carrusel vertical */
+      /* Mobile: Servicios como carrusel vertical */
       @media (max-width: 720px) {
-        /* Servicios: lista vertical (sin carrusel interno) */
+        /* Información: lista vertical (sin carrusel interno) */
         .services.snap > .container { height: auto; }
         .services > .container { height: auto; }
         .services-window { flex: 1 1 auto; height: auto; }
         .services-carousel { display: flex; flex-direction: column; gap: 12px; height: auto; overflow-y: visible; overflow-x: hidden; scroll-snap-type: none; padding: 12px; }
         .service-slide, .service-slide > div { height: auto; }
 
-        /* Planes: carrusel vertical interno que llena la sección */
+        /* Servicios: carrusel vertical interno que llena la sección */
         .pricing.snap { align-items: stretch; }
         .pricing .container { display: flex; flex-direction: column; height: 100%; }
         .pricing .section-title { margin-top: 28px; }
         #contacto .section-title { margin-top: 28px; }
         .pricing .grid {
-          display: block; /* apila las tarjetas */
+          display: flex; /* apila las tarjetas con control de orden */
+          flex-direction: column;
+          gap: 12px;
           flex: 1 1 auto; /* ocupa el alto restante de la sección */
           overflow-y: auto; /* área scroll interna */
           padding: 12px 0 16px;
@@ -330,12 +333,13 @@
         .pricing .grid .card {
           scroll-snap-align: start;
           min-height: 100%; /* cada card ocupa toda el área visible del carrusel */
-          margin: 0 0 12px;
+          margin: 0;
             display: flex; flex-direction: column; justify-content: flex-start;
         }
+        .pricing .grid .card.video-first { order: -1; }
       }
 
-      /* FAB móvil para ir a Planes (solo visible en sección Servicios) */
+      /* FAB móvil para ir a Servicios (solo visible en sección Información) */
       .fab-planes {
         position: fixed; left: 50%; bottom: max(16px, env(safe-area-inset-bottom) + 8px); transform: translateX(-50%);
         z-index: 60; display: none; align-items: center; gap: 8px;
@@ -413,7 +417,7 @@
     </header>
 
     <main>
-      <!-- Sección 1: Hero + Servicios (100% viewport) -->
+      <!-- Sección 1: Hero + Información (100% viewport) -->
       <section id="inicio" class="snap hero" style="margin-top: 0;">
         <div class="hero-orbs" aria-hidden="true">
           <span class="hero-orb orb-a"></span>
@@ -427,22 +431,22 @@
           <h1>Creación y gestión de contenido digital</h1>
           <p>Impulsa tu marca con contenido llamativo, estrategia y ejecución, sin complicaciones.</p>
           <div class="actions">
-            <a class="btn-ghost" href="#servicios">Ver servicios</a>
-            <a class="cta" href="#planes">Ver planes</a>
+            <a class="btn-ghost" href="#informacion">Información</a>
+            <a class="cta" href="#servicios">Servicios</a>
           </div>
 
         </div>
       </section>
 
-      <!-- Sección 2: Servicios (100% viewport) -->
-      <section id="servicios" class="snap services">
+      <!-- Sección 2: Información (100% viewport) -->
+      <section id="informacion" class="snap services">
         
           <div class="services-header">
-            <h2 class="section-title">Servicios</h2>
-            <p class="muted-center">Servicios claros enfocados en los resultados. Solo lo que aporta valor.</p>
+            <h2 class="section-title">Información</h2>
+            <p class="muted-center">Enfocados en lo que aporta valor</p>
           </div>
           <div class="services-window">
-            <div class="services-carousel" aria-label="Servicios principales">
+            <div class="services-carousel" aria-label="Información principal">
               <article class="service-slide">
                 <div>
                     <div class="service-head">
@@ -490,7 +494,7 @@
                   </div>
                   <ul class="services-list">
                     <li>Análisis de audiencia</li>
-                    <li>Informes mensuales</li>
+                    <li>Evaluación de resultados</li>
                     <li>Reportes fáciles de interpretar</li>
                   </ul>
                 </div>
@@ -526,11 +530,11 @@
           
       </section>
 
-      <!-- Sección 3: Planes (100% viewport) -->
-      <section id="planes" class="pricing snap">
+      <!-- Sección 3: Servicios (100% viewport) -->
+      <section id="servicios" class="pricing snap">
         <div class="container">
-          <h2 class="section-title">Planes de suscripción</h2>
-          <p class="muted-center">Elige el plan que mejor encaja. Sin letras pequeñas.</p>
+          <h2 class="section-title">Servicios</h2>
+          <p class="muted-center">Elige el servicio que mejor te encaje.</p>
 
           <div class="grid">
             <div class="card col-4" data-plan="Standard">
@@ -543,7 +547,7 @@
               <div class="plan-divider" role="separator" aria-hidden="true"></div>
               <ul class="features">
                 <li>Grabación y edición de contenido</li>
-                <li>Publicación en redes</li>
+                <li>Publicación en redes con captions optimizadas</li>
                 <li>Desarrollo de estrategia de contenido</li>
               </ul>
               <a href="https://buy.stripe.com/00waEX4UL3HI0vUcMh4ko00" class="cta buy" data-select-plan="Standard">Elegir standard</a>
@@ -577,21 +581,22 @@
               <ul class="features">
                 <li>Soporte prioritario</li>
                 <li>Análisis y seguimiento avanzado</li>
+                <li>*Este plan requiere un estudio previo de tu negocio para confirmar que realmente te resulta rentable. Si detectamos que no lo es, te devolvemos el dinero, solo queremos ofrecer servicios que aporten valor.*</li>
               </ul>
               <a href="https://buy.stripe.com/00wcN51Izguua6u7rX4ko03" class="cta buy" data-select-plan="Premium">Elegir Premium</a>
             </div>
 
-            <div class="card col-4 col-under-profesional" data-plan="Individual">
-              <h3>Compra individual</h3>
-              <div class="price"><span class="current">120€ / vídeo</span></div>
+            <div class="card col-4 col-under-profesional video-first" data-plan="Individual">
+              <h3>Vídeo individual</h3>
+              <div class="price"><span class="current">120€</span></div>
               <p class="tax-note">Precio sin IVA.</p>
               <div class="plan-divider" role="separator" aria-hidden="true"></div>
-              <div class="pieces-per-month" aria-label="Compra individual">Incluye grabación, edición y entrega del contenido</div>
+              <div class="pieces-per-month" aria-label="Vídeo individual">Incluye grabación, edición y entrega del contenido</div>
               <div class="plan-divider" role="separator" aria-hidden="true"></div>
               <ul class="features">
+                <li>Ideal para eventos</li>
                 <li>Precio único por una pieza de contenido</li>
-                <li>Ideal para proyectos puntuales</li>
-                <li>Los gastos de desplazamiento derivados de la actividad se facturan aparte</li>
+                <li>*Los gastos de desplazamiento derivados de la actividad se facturan aparte*</li>
               </ul>
               <a href="https://buy.stripe.com/9B64gz3QH4LMemKfYt4ko02" class="cta buy" data-select-plan="Individual">Elegir individual</a>
             </div>
@@ -603,12 +608,10 @@
       <section id="contacto" class="snap">
         <div class="container">
           <h2 class="section-title">Contacto</h2>
-          <p class="muted-center">Cuéntanos brevemente qué necesitas y te respondemos en 24–48h.</p>
+          <p class="muted-center">Todos los canales en un solo lugar.</p>
 
           <div class="contact-actions">
-            <a class="btn-wa" target="_blank" rel="noopener" aria-label="Contactar por WhatsApp"
-               href="https://wa.me/34684727915?text=%C2%A1Hola%20C%C3%A9sar!%20Me%20ha%20llamado%20la%20atenci%C3%B3n%20tu%20trabajo%20y%20me%20gustar%C3%ADa%20hablar%20para%20ver%20si%20podemos%20trabajar%20juntos.">WhatsApp</a>
-            <a class="btn-ghost" href="mailto:contacto@grabandoconcesar.com?subject=Quiero%20colaborar%20contigo" rel="noopener">Enviar email</a>
+            <a class="btn-ghost" href="https://linktr.ee/grabandoconcesar" target="_blank" rel="noopener">Ponerme en contacto</a>
           </div>
         </div>
       </section>
@@ -622,8 +625,8 @@
 
     <!-- Botón de WhatsApp ahora está en el navbar -->
 
-    <!-- FAB móvil para ir a Planes; se muestra solo al estar en sección Servicios -->
-    <a href="#planes" id="fab-planes" class="fab-planes" aria-label="Ver planes">Ver planes</a>
+    <!-- FAB móvil para ir a Servicios; se muestra solo al estar en sección Información -->
+    <a href="#servicios" id="fab-planes" class="fab-planes" aria-label="Servicios">Servicios</a>
 
     <script>
       // Año actual en footer
@@ -638,20 +641,20 @@
         });
       });
 
-      // Mostrar el FAB de "Ver planes" solo cuando la sección Servicios esté visible (móvil)
+      // Mostrar el FAB de "Servicios" solo cuando la sección Información esté visible (móvil)
       (function(){
         const fab = document.getElementById('fab-planes');
-        const servicios = document.getElementById('servicios');
-        const planesTitle = document.querySelector('#planes .section-title');
-        if (!fab || !servicios) return;
+        const informacion = document.getElementById('informacion');
+        const serviciosTitle = document.querySelector('#servicios .section-title');
+        if (!fab || !informacion) return;
 
         const isMobile = () => window.matchMedia('(max-width: 720px)').matches;
         let obs;
-        let isServiciosVisible = false;
-        let isPlanesTitleVisible = false;
+        let isInformacionVisible = false;
+        let isServiciosTitleVisible = false;
 
         const refresh = () => {
-          const shouldShow = isMobile() && isServiciosVisible && !isPlanesTitleVisible;
+          const shouldShow = isMobile() && isInformacionVisible && !isServiciosTitleVisible;
           fab.classList.toggle('show', shouldShow);
         };
         const setup = () => {
@@ -660,25 +663,25 @@
           const options = { root: null, threshold: [0, 0.1, 0.2], rootMargin: '0px 0px -10% 0px' };
           obs = new IntersectionObserver((entries)=>{
             entries.forEach(e => {
-              if (e.target === servicios) {
-                isServiciosVisible = e.isIntersecting;
-              } else if (planesTitle && e.target === planesTitle) {
-                isPlanesTitleVisible = e.isIntersecting;
+              if (e.target === informacion) {
+                isInformacionVisible = e.isIntersecting;
+              } else if (serviciosTitle && e.target === serviciosTitle) {
+                isServiciosTitleVisible = e.isIntersecting;
               }
             });
             refresh();
           }, options);
-          obs.observe(servicios);
-          if (planesTitle) obs.observe(planesTitle);
+          obs.observe(informacion);
+          if (serviciosTitle) obs.observe(serviciosTitle);
           // Estado inicial
-          isServiciosVisible = location.hash === '#servicios';
-          isPlanesTitleVisible = false;
+          isInformacionVisible = location.hash === '#informacion';
+          isServiciosTitleVisible = false;
           refresh();
         };
         setup();
         window.addEventListener('hashchange', () => {
           if (!isMobile()) return;
-          isServiciosVisible = (location.hash === '#servicios');
+          isInformacionVisible = (location.hash === '#informacion');
           refresh();
         });
         window.addEventListener('resize', () => { if (obs) obs.disconnect(); setup(); }, { passive: true });
