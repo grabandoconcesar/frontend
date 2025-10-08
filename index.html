@@ -272,28 +272,6 @@
         --opacity-min: 0.33;
         --opacity-max: 0.55;
       }
-      .contact-orb.orb-g {
-        --size: 140px;
-        --offset-x: -6vw;
-        --offset-top: 30px;
-        --drift-x: 14vw;
-        --travel: 140px;
-        --duration: 22s;
-        --delay: -9s;
-        --opacity-min: 0.32;
-        --opacity-max: 0.53;
-      }
-      .contact-orb.orb-h {
-        --size: 150px;
-        --offset-x: 32vw;
-        --offset-top: 80px;
-        --drift-x: -16vw;
-        --travel: 150px;
-        --duration: 24s;
-        --delay: -12s;
-        --opacity-min: 0.34;
-        --opacity-max: 0.55;
-      }
       @keyframes hero-bounce {
         0% {
           transform: translate3d(var(--offset-x), var(--offset-top), 0) scale(0.98);
@@ -368,8 +346,15 @@
         .snap > .container { height: calc(100svh - var(--nav-h)); display: flex; flex-direction: column; }
         header { position: sticky; }
         /* Contacto: menos espacio y sin ocupar toda la altura */
-      #contacto.snap { min-height: auto; padding-top: 32px; padding-bottom: 32px; }
-      #contacto.snap > .container { height: auto; }
+        #contacto.snap { min-height: calc(100svh - var(--nav-h)); padding-top: 32px; padding-bottom: 32px; }
+        #contacto.snap > .container {
+          min-height: calc(100svh - var(--nav-h));
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          gap: 18px;
+        }
         #contacto .section-title { margin-top: 20px; }
         footer { padding-top: 16px; padding-bottom: 60px; }
       }
@@ -478,8 +463,6 @@
         .contact-orb.orb-d { --offset-x: 26vw; --offset-top: 20px; --travel: 260px; --size: 125px; }
         .contact-orb.orb-e { --offset-x: -34vw; --offset-top: -20px; --travel: 250px; --size: 105px; }
         .contact-orb.orb-f { --offset-x: 6vw; --offset-top: -100px; --travel: 280px; --size: 135px; }
-        .contact-orb.orb-g { --offset-x: -12vw; --offset-top: -140px; --travel: 300px; --size: 110px; }
-        .contact-orb.orb-h { --offset-x: 38vw; --offset-top: -80px; --travel: 270px; --size: 120px; }
       }
 
       /* FAB móvil para ir a Servicios (solo visible en sección Información) */
@@ -689,10 +672,11 @@
               <p class="limited-note">*El precio promocional se mantendrá de forma indefinida mientras la suscripción siga activa*</p>
               <div class="plan-divider" role="separator" aria-hidden="true"></div>
               <div class="pieces-per-month" aria-label="Piezas de contenido al mes">4 piezas de contenido / mes</div>
+              <div class="pieces-per-month" aria-label="Historias semanales">2 historias semanales (Instagram)</div>
               <div class="plan-divider" role="separator" aria-hidden="true"></div>
               <ul class="features">
                 <li>Grabación y edición de contenido</li>
-                <li>Publicación en redes con captions optimizadas</li>
+                <li>Gestión básica de redes</li>
                 <li>Desarrollo de estrategia de contenido</li>
               </ul>
               <a href="https://buy.stripe.com/00waEX4UL3HI0vUcMh4ko00" class="cta buy" data-select-plan="Standard">Elegir standard</a>
@@ -706,9 +690,10 @@
               <div class="plan-divider" role="separator" aria-hidden="true"></div>
               <div class="pieces-per-month" aria-label="Piezas de contenido al mes">Todo lo incluido en el plan Standard</div>
               <div class="pieces-per-month" aria-label="Piezas de contenido al mes">8 piezas de contenido / mes</div>
+              <div class="pieces-per-month" aria-label="Historias semanales">4 historias semanales (Instagram)</div>
               <div class="plan-divider" role="separator" aria-hidden="true"></div>
               <ul class="features">
-                <li>Gestión completa de redes</li>
+                <li>Gestión avanzada de redes</li>
                 <li>Estrategia y marketing para empresa</li>
                 <li>Optimización de publicaciones</li>
               </ul>
@@ -722,25 +707,24 @@
               <div class="plan-divider" role="separator" aria-hidden="true"></div>
               <div class="pieces-per-month" aria-label="Piezas de contenido al mes">Todo lo incluido en el plan Profesional</div>
               <div class="pieces-per-month" aria-label="Piezas de contenido al mes">16 piezas de contenido / mes</div>
+              <div class="pieces-per-month" aria-label="Historias semanales">6 historias semanales (Instagram)</div>
               <div class="plan-divider" role="separator" aria-hidden="true"></div>
               <ul class="features">
-                <li>Soporte prioritario</li>
                 <li>Análisis y seguimiento avanzado</li>
-                <li>*Este plan requiere un estudio previo de tu negocio para confirmar que realmente te resulta rentable. Si detectamos que no lo es, te devolvemos el dinero, solo queremos ofrecer servicios que aporten valor.*</li>
               </ul>
               <a href="https://buy.stripe.com/00wcN51Izguua6u7rX4ko03" class="cta buy" data-select-plan="Premium">Elegir Premium</a>
             </div>
 
             <div class="card col-4 col-under-profesional video-first" data-plan="Individual">
-              <h3>Vídeo individual</h3>
+              <h3>Vídeo suelto</h3>
               <div class="price"><span class="current">120€</span></div>
               <p class="tax-note">Precio sin IVA.</p>
+              <p class="limited-note">*Añade vídeos extra por 80€*</p>
               <div class="plan-divider" role="separator" aria-hidden="true"></div>
               <div class="pieces-per-month" aria-label="Vídeo individual">Incluye grabación, edición y entrega del contenido</div>
               <div class="plan-divider" role="separator" aria-hidden="true"></div>
               <ul class="features">
                 <li>Ideal para eventos</li>
-                <li>Precio único por una pieza de contenido</li>
                 <li>*Los gastos de desplazamiento derivados de la actividad se facturan aparte*</li>
               </ul>
               <a href="https://buy.stripe.com/9B64gz3QH4LMemKfYt4ko02" class="cta buy" data-select-plan="Individual">Elegir individual</a>
@@ -758,8 +742,6 @@
           <span class="contact-orb orb-d"></span>
           <span class="contact-orb orb-e"></span>
           <span class="contact-orb orb-f"></span>
-          <span class="contact-orb orb-g"></span>
-          <span class="contact-orb orb-h"></span>
         </div>
         <div class="container">
           <h2 class="section-title">Contacto</h2>
